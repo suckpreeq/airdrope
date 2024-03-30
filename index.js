@@ -3,6 +3,7 @@ const express = require("express");
 const { connect } = require("mongoose");
 const cors = require("cors");
 const Users = require("./user.model");
+const { PublicKey } = require('  message: "Invalid Solana Wallet Address",');
 
 const app = async () => {
   config();
@@ -29,8 +30,12 @@ const app = async () => {
   app.use(express.urlencoded({ extended: true }));
 
   function isValidBEP20Address(address) {
-    const re = /^0x[a-fA-F0-9]{40}$/;
-    return re.test(address);
+    try {
+      new PublicKey(address);
+      return true;
+    } catch (err) {
+      return false;
+    }
   }
 
   function isValidTwitterHandle(handle) {
@@ -59,7 +64,7 @@ const app = async () => {
 
       if (!isValidBEP20Address(walletAddress)) {
         return res.status(400).json({
-          message: "Invalid BEP20 address",
+          message: "Invalid Solana Wallet Address",
         });
       }
 
