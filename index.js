@@ -3,7 +3,7 @@ const express = require("express");
 const { connect } = require("mongoose");
 const cors = require("cors");
 const Users = require("./user.model");
-const { PublicKey } = require('  message: "Invalid Solana Wallet Address",');
+const { PublicKey } = require('@solana/web3.js');
 
 const app = async () => {
   config();
